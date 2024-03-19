@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Blog</title>
+  <style>
+    *{
+      margin:0;
+      padding:0;
+    }
+    header{
+      margin:0;
+      padding:0;
+      font-family:Arial, Helvetica, sans-serif;
+    }
+    .container,.card{
+      display:flex;
+      flex-direction:column;
+      justify-content: center;
+      align-items:center;
+    }
+    a{
+      text-decoration: none;
+      color:black;
+    }
+    button{
+      padding:0.5rem 1rem;
+      border:none;
+      margin-right:1rem;
+      margin-bottom:1rem;
+      width:8rem;
+      transition:all 0.4s;
+    }
+    .card{
+      width:80%;
+    }
+    .card-body{
+      border-bottom:solid 0.6px grey;
+
+    }
+    .read_more{
+      background-color:rgb(72, 226, 162);
+      margin-top:0.4rem;
+    }
+    .edit{
+      background-color: rgb(147, 145, 145);
+      margin-top:0.4rem;
+      transition:all 0.4s;
+      
+    }
+    .edit:hover{
+      background-color: rgb(97, 96, 96);
+    }
+    .edit-link{
+      color:white;
+    }
+    .delete{
+      background-color: rgb(249, 131, 131);
+    }
+    .card-subtitle{
+      font-size:small;
+      margin:1rem 0rem;
+    }
+    .new{
+      margin:1rem 0rem;
+      background-color: skyblue;
+    }
+    .read_more:hover{
+      background-color: rgb(35, 199, 106);
+    }
+    /* .read_more:hover .read-link{
+      color:white;
+    } */
+    .delete:hover{
+      background-color: rgb(242, 78, 78);
+    }
+    .new:hover{
+      background-color: rgb(49, 188, 234);
+    }
+
+    .navbar{
+      width:100%;
+      height:3rem;
+      background-color: antiquewhite;
+      display:flex;
+      position:fixed;
+      z-index:1;
+      gap:1rem;
+      align-items: center;
+      padding-left:1.6rem;
+    }
+    .container{
+      position: relative;
+      top:4rem;
+    }
+    .nav{
+      margin-left: 1rem;
+      transition:all 0.4s;
+      color:rgb(71, 71, 71);
+    }
+    .nav:hover{
+      text-decoration: underline;
+      color:black;
+    }
+
+    @media (max-width:800px){
+      .create{
+        display:none;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+  
+  <header>
+    <div class="navbar">
+      <a href="/" class="nav">Home</a>
+      <a href="https://www.instagram.com/anubhab098/" class="nav">Instagram</a>
+      <a href="https://www.linkedin.com/in/anubhab-nath-0a42bb292/" class="nav">LinkedIn</a>
+      <a href="https://github.com/anubhabnath098" class="nav">Github</a>
+      <a href="/articles/new" class="nav create">Create</a>
+    </div>
+  <div class="container">
+    <h1 class="mb-4">Blog Articles</h1>
+    <button class="new"><a href="/articles/new" class="btn btn-success">Create New</a></button>
+
+    <% articles.forEach(article => { %>
+      <div class="card mt-4">
+        <div class="card-body">
+          <h2 class="card-title"><%= article.title %></h2>
+          <div class="card-subtitle text-muted mb-2">
+            Dated: <%= article.createdAt.toLocaleDateString() %>
+          </div>
+          <div class="card-text mb-2"><%= article.description %></div>
+          <button class="read_more"><a href="articles/<%= article.slug %>" class="read-link" >Read More</a></button>
+          <button class="edit"><a href="articles/edit/<%= article.id %>" class="edit-link">Edit</a></button>
+          <form action="/articles/<%= article.id %>?_method=DELETE" method="POST" class="d-inline">
+            <button type="submit" class="btn delete">Delete</button>
+          </form>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</header>
+</body>
+</html>
